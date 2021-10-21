@@ -25,11 +25,11 @@ docker cp ./fdp-client/assets/ helper:/usr/share/nginx/html/
 docker cp ./fdp-client/favicon.ico helper:/usr/share/nginx/html/
 docker rm helper
 
-mkdir data
-docker run -v mongo:/data/db --name helper busybox true
+#mkdir data
+#docker run -v mongo:/data/db --name helper busybox true
 
-docker cp data helper:/data/db/
-docker rm helper
+#docker cp data helper:/data/db/
+#docker rm helper
 
 docker run -v fdp-client-scss:/src/scss/custom/ --name helper busybox true
 docker cp ./fdp-client/variables.scss helper:/src/scss/custom/_variables.scss
