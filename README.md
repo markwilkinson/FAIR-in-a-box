@@ -10,16 +10,16 @@ In order to use the cde-in-box solution you `have to` meet following requirement
 
 **User requirements (Person who is deploying this solution)**
 
-* Basic knowledge on Docker​
+* Basic knowledge about Docker​
 * Basic GitHub knowledge​
 * Awareness of CDE semantic model
 
 **System requirements​ (Machine where this solution is being deployed)**
 
-* Docker engine​
+* Docker engine ​
 * Docker-compose application​
 
-## Softwares used in CDE in a box
+## Software used in CDE in a box
 The image below gives an overview of softwares used in the `CDE in a box` solutions.
 
 <p align="center"> 
@@ -53,15 +53,14 @@ Once you have cloned this repository please follow the instructions below to pro
 
 ### Configuring bootstrap services
 #### GraphDB
-The `docker-compose.yml` file in directory `cde-in-box/bootstrap` will setup up graphDB triple store and creates `fdp` and `cde` repositories in graphDB. These two repositories are used by other services in CDE in box so make sure that bootstrap services are property setup before you proceed further.
-   
-To run `docker-compose.yml` file in `cde-in-box/bootstrap` you need graphDB triple store free edition. Follow the steps below to get free edition of graphdb.
+
+To use CDE-in-a-box you need to first download the *standalone* graphDB triple store free edition. Follow the steps below to get free edition of graphdb.
 
 
-**Step 1:** GO to this [url](https://www.ontotext.com/products/graphdb/graphdb-free/) and registry to download GraphDB free edition.
+**Step 1:** GO to this [url](https://www.ontotext.com/products/graphdb/graphdb-free/) and register to download GraphDB free edition.
 
 
-**Step 2:** The download will be sent to your email. From the email follow link to download page and `click` on "Download as a stand-alone server". This step will download "graphdb-free-{version}-dist.zip" file to your machine.
+**Step 2:** The download link will be sent to your email. From the email follow link to download page and `click` on _"Download as a stand-alone server"_. This step will download "graphdb-free-{version}-dist.zip" file to your machine.
 
 
 **Step 3:** Move "graphdb-free-{version}-dist.zip" file to the following location
@@ -70,7 +69,7 @@ To run `docker-compose.yml` file in `cde-in-box/bootstrap` you need graphDB trip
 mv graphdb-free-{version}-dist.zip cde-in-box/bootstrap/graph-db
 ```
 
-**Step 4:** If your `graphdb version` is different from `9.7.0` then change the version number of graph DB in the docker-compose file.
+**Step 4:** If your `graphdb version` is different from `9.9.1` then change the version number of graph DB in the ./cde-in-box/bootstrap/docker-compose file.
 
 ```sh
 graph_db:
@@ -80,14 +79,31 @@ graph_db:
       args:
         version: 9.7.0
 ```
-#### Running bootstrap services
-Once you have done above configurations you can run `bootstrap` services by running `docker-compose.yml` file in `cde-in-box/bootstrap` directory.
+
+**Step 5:** If your `graphdb version` is different from `9.9.1` then change the version number of graph DB in the ./cde-in-box/bootstrap/graph-db/Docker file
 
 ```sh
-docker-compose up -d
+FROM adoptopenjdk/openjdk11:alpine
+
+# Build time arguments
+ARG version=9.9.1
+ARG edition=free
+
 ```
 
-If the deployment is successful then you can access the graphDB by visiting the following URL.
+
+
+#### Installing
+Once you have done above configurations you can run "run-me-to-install.sh" in the ./cde-in-box/ folder
+
+```sh
+./run-me-to-install.sh
+```
+after several mimnutes, the installer will send a message to the screen asking you to check that the installation was successful.  This message will last for 10 minutes, giving you enough time to explore the links below.  After 10 minutes, the services will all automatically shut down.  You can stop the installer by CTRL-C anytime.
+
+#### Checking
+
+* If the GrtaphDB deployment is successful then you can access the graphDB by visiting the following URL.
 
 **Note:** If you deploy `CDE in a box` solution in your laptop then check only for **local deployment** url.
 
@@ -101,27 +117,9 @@ By default GraphDB service is secured so you need credentials to login to the gr
 | --- | --- |
 | `admin` | `root` |
 
-### Configuring metadata services
-#### FAIR Data Point
-The `docker-compose.yml` file in directory `cde-in-box/metadata` will setup up `FAIR Data Point` and connects FAIR Data Point to triple store created in the bootstrapping step.
 
 
-
-**Step 1:** Before you run metadata services make sure that graphDB triple store is up running. You can check by going to following url. For local deployment (in your laptop) `http://localhost:7200` for production deployment (in your server) `http:server_ip:7200`
-
-
-
-**Step 2:** Check if `fdp` repository is available in the graphDB triple store.
-
-
-#### Running metadata services
-Once you have done above checks you can run `metadata` services by running `docker-compose.yml` file in `cde-in-box/metadata` directory.
-
-```sh
-docker-compose up -d
-```
-
-If the deployment is successful then you can access the FAIR Data Point by visiting the following URL.
+* If the FAIR Data Point deployment is successful then you can access the FAIR Data Point by visiting the following URL.
 
 | Service name | Local deployment | Production deployment |
 | --- | --- | --- |
@@ -134,6 +132,8 @@ In order to add content to the FAIR Data Point you need credentials with write a
 | Username| Password |
 | --- | --- |
 | `albert.einstein@example.com` | `password` |
+
+
 
 ### Configuring data transformation services
 
