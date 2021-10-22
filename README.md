@@ -9,6 +9,7 @@ CDE in a box` is a collection of software applications which enables creation, s
 * [Downloading](#downloading)
 * [Installing](#installing)
 * [Testing your installation](#testing)
+* [Using your CDE-in-a-Box](#using)
 
 <a name="requirements"></a>
 
@@ -26,6 +27,7 @@ In order to use the cde-in-box solution you `have to` meet following requirement
 * Docker engine ​
 * Docker-compose application​
 
+---------------------------------------------------
 
 <a name="downloading"></a>
 
@@ -78,7 +80,7 @@ ARG edition=free
 
 ```
 
-
+------------------------------------------------------
 
 <a name="installing"></a>
 
@@ -92,12 +94,13 @@ Once you have done above downloads and configurations you can run "run-me-to-ins
 
 after several mimnutes, the installer will send a message to the screen asking you to check that the installation was successful.  This message will last for 10 minutes, giving you enough time to explore the links below.  After 10 minutes, the services will all automatically shut down.  You can stop the installer by CTRL-C anytime.
 
+--------------------------------------------------
 
 <a name="testing"></a>
 
 ## Testing your installation 
 
-* If the GraphDB deployment is successful then you can access GraphDB by visiting the following URL.
+* If the **GraphDB** deployment is successful then you can access GraphDB by visiting the following URL.
 
 **Note:** If you deploy the `CDE in a box` solution in your laptop then check only for **local deployment** url.
 
@@ -113,7 +116,7 @@ By default GraphDB service is secured so you need credentials to login to the gr
 
 
 
-* If the FAIR Data Point deployment is successful then you can access the FAIR Data Point by visiting the following URL.
+* If the **FAIR Data Point** deployment is successful then you can access the FAIR Data Point by visiting the following URL.
 
 | Service name | Local deployment | Production deployment |
 | --- | --- | --- |
@@ -128,8 +131,27 @@ In order to add content to the FAIR Data Point you need credentials with write a
 | `albert.einstein@example.com` | `password` |
 
 
+-----------------------------------------------------
 
-### Configuring data transformation services
+
+<a name="using"></a>
+
+# Using CDE-in-a-box for data transformation
+
+In the folder ./cde-ready-to-go there is a docker-compose.yml file, and two directories.  You may move these files/folders anywhere on your system, once you have completed the installation and testing described above (the installation files, including the graphdb zip, may be deleted if you no longer want to keep them)
+
+the folder structure is:
+```
+.--
+  | docker-compose.yml
+  | /data
+  ---
+    | /triples
+  | /config
+  
+```
+* The /data folder contains CSV, with each CSV file representing one of the CDEs.
+* The /config folder contains [YARRRML Templates](https://github.com/ejp-rd-vp/CDE-semantic-model-implementations/tree/master/YARRRML_Transform_Templates), one for each of the CSVs.
 
 #### Preparing input data
 
