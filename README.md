@@ -27,6 +27,7 @@ In order to use the cde-in-box solution you `have to` meet following requirement
 * Docker engine ​
 * Docker-compose application​
 
+---------------------------------------------------
 
 <a name="downloading"></a>
 
@@ -79,7 +80,7 @@ ARG edition=free
 
 ```
 
-
+------------------------------------------------------
 
 <a name="installing"></a>
 
@@ -93,6 +94,7 @@ Once you have done above downloads and configurations you can run "run-me-to-ins
 
 after several mimnutes, the installer will send a message to the screen asking you to check that the installation was successful.  This message will last for 10 minutes, giving you enough time to explore the links below.  After 10 minutes, the services will all automatically shut down.  You can stop the installer by CTRL-C anytime.
 
+--------------------------------------------------
 
 <a name="testing"></a>
 
@@ -129,7 +131,10 @@ In order to add content to the FAIR Data Point you need credentials with write a
 | `albert.einstein@example.com` | `password` |
 
 
-<a name="testing"></a>
+-----------------------------------------------------
+
+
+<a name="using"></a>
 
 # Using CDE-in-a-box for data transformation
 
