@@ -17,9 +17,12 @@ docker volume create mongo-init
 
 GREEN='\033[0;32m'
 NC='\033[0m' # No Color
+CWD=$(pwd)
+
 
 function ctrl_c() {
-        docker-compose down
+        docker-compose -f $CWD/metadata/docker-compose.yml down
+        docker-compose -f $CWD/bootstrap/docker-compose.yml down
         exit 2
 }
 
