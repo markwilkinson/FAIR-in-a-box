@@ -170,6 +170,7 @@ Make sure the following folder structure, relative to where you plan to keep you
         .cde-ready-to-go/data/   
         .cde-ready-to-go/data/mydataX.csv  (input csv files, e.g. "height.csv")
         .cde-ready-to-go/data/mydataY.csv...
+        .cde-ready-to-go/data/triples   (this is where the output data will be written, and loaded from here into Graphdb)
         .cde-ready-to-go/config/   (this is the folder where yarrrml templates will be automatically loaded from the EJP repository)
 ``` 
 **Step 2:**  Edit the .env file
@@ -186,9 +187,7 @@ optimally, these URLs will resolve...
 
 **Step 3:**  Running data transformation services
 
-Then you can run the data transformation services setup by running the `docker-compose.yml` file in `cde-in-box/cde-ready-to-go` directory.  Be sure that you move this into the appropriate location; **THE docker-compose MUST BE RUN IN THE SAME FOLDER THAT CONTAINS THE ./data/triples and ./config and subfolders**
-
-You should then refresh your local copies of the docker images, to ensure they are up-to-date with what EJP is providing:
+To start the data transformation services, execute the `docker-compose.yml` file that can be found in the cde-ready-to-go folder.  If you want to run the transformation services in some other location on your server, just remember **THE docker-compose MUST BE RUN IN THE SAME FOLDER THAT CONTAINS THE .env, THE ./data/triples,  and ./config subfolders**
 
 ```
 docker-compose pull
