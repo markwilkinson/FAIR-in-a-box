@@ -1,5 +1,6 @@
-
 #!/bin/bash
+mkdir $HOME/tmp
+export TMPDIR=$HOME/tmp
 
 docker volume remove -f fair-data-point fdp-client-assets fdp-client-css fdp-client-scss fdp-server mongo-data mongo-init 
 
