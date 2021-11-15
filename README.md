@@ -37,6 +37,13 @@ In order to use the cde-in-box solution you `have to` meet following requirement
 
 To get the CDE in a box code clone this repository to your machine.
 
+
+```sh
+git clone https://github.com/markwilkinson/temp-cde-in-a-box
+```
+
+TODO - replace the temp git above with the permanent one below when this has been sufficiently tested.  Please ignore the clone instruction below.
+
 ```sh
 git clone https://github.com/ejp-rd-vp/cde-in-box
 ```
