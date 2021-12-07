@@ -57,7 +57,7 @@ docker rm helper
 
 echo "fdp client css helper"
 docker run -v fdp-client-scss:/src/scss/custom/ --name helper busybox true
-docker cp ./fdp-client/variables.scss helper:/src/scss/custom/_variables.scss:ro
+docker cp ./fdp-client/variables.scss helper:/src/scss/custom/_variables.scss
 docker rm helper
 
 echo "fdp client nginx config helper"
