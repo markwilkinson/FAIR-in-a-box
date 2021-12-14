@@ -3,7 +3,7 @@ version: '3'
 services:  
   # FAIR Data Point server    
   fdp:
-    image: fairdata/fairdatapoint:1.12.0
+    image: fairdata/fairdatapoint:1.12.1
     volumes:
       - fdp-server:/fdp/
     depends_on:
