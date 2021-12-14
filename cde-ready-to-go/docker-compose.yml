@@ -13,7 +13,7 @@ services:
       - graphdb_net
 
   fdp:
-    image: fairdata/fairdatapoint:1.12.0
+    image: fairdata/fairdatapoint:1.12.1
     volumes:
       - fdp-server:/fdp/
     restart: always
