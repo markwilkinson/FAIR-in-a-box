@@ -10,6 +10,7 @@ CDE in a box` is a collection of software applications which enables creation, s
 * [Installing](#installing)
 * [Testing your installation](#testing)
 * [Using your CDE-in-a-Box](#using)
+* [Customizing your CDE-in-a-Box](#customizing)
 
 <a name="requirements"></a>
 
@@ -145,7 +146,9 @@ In order to add content to the FAIR Data Point you need credentials with write a
 
 # Using CDE-in-a-box for data transformation
 
-In the folder ./cde-ready-to-go there is a docker-compose.yml file, and two directories.  You may move these files/folders anywhere on your system, once you have completed the installation and testing described above (the installation files, including the graphdb zip, may be deleted if you no longer want to keep them)
+NOTE:  The folders "metadata" and "bootstrap" are no longer needed unless you plan to customize your installation (e.g. change the colors or logos - see "Customization" below).  You may delete them if you wish, or move them to some backup folder to keep for later.  ALL ACTIVITIES FROM NOW ON HAPPEN INSIDE OF THE cde-ready-to-go FOLDER.
+
+In the folder ./cde-ready-to-go there is a docker-compose.yml file, and two directories.  You may move these files/folders anywhere on your system, once you have completed the installation and testing described above 
 
 the folder structure is:
 ```
@@ -258,3 +261,53 @@ In this section we list other known `CDE in a box` solutions.
 **MOLGENIS CDE in a box**     
 MOLGENIS EDC provider also provides a complete set of `CDE in a box` with EDC system. To learn more about MOLGENIS implementation of the `CDE in a box` solution please visit this [link](https://github.com/fdlk/cde-in-box/tree/feat/molgenis)
 
+
+# Customization of your installation
+
+## Update username and password for the FDP
+
+   - Go to http://localhost:7200  and login with the default username and password ("admin"/"root").  
+   - Enter the "settings" for the admin account, and update the password.  Note that this account will have access to both the metadata and the data (!!) so make the password strong!
+   - at the terminal, shut down the system (docker-compose down)
+   - go to the ./metadata/fdp folder and edit the file "application.yml"
+   - in the repository settings, update the username and password to whatever you selected above
+   - now you need to copy the new settings into the FDP docker image.  To do so, issue the following commands (this assumes that you are still in the ./metadata/fdp folder):
+
+```
+docker run -v fdp-server:/fdp/ --name helper busybox true
+docker cp ./application.yml helper:/fdp/
+docker rm helper
+
+```   - now go back to the cde-ready-to-go folder and bring the system back up.  Your FDP is now protected with the new password.
+
+## Create a "safe" user for the CDE database
+
+   - Go to http://localhost:7200  and login with the current username and password
+   - Enter the "settings" and "users".
+   - Create a new user and password, giving them read/write permission ONLY on the CDE database, and read-only permission on the FDP database.
+   - in the cde-ready-to-go folder, update the `.env` file with this new limited-permissions user
+   - docker-compose down and up to restart the server
+
+
+##  Update the colors and logo
+
+   - go to the ./metadata/fdp-client/ folder
+   - add your preferred logo file into the ./assets subfolder
+   - edit the ./variables.scss to point to that new logo file, and select its display size (or keep the default)
+   - to change the default colors, edit the first two lines to select the primary and secondary colors (the horizontal bar on the http://localhost:8080 homepage shows the primary color on the left and the secondary color on the right)
+   - if you have a preferred favicon, replace the one in that folder with your preferred one.
+   - now you need to copy the new settings into the FDP Client docker image.  To do so, issue the following commands (this assumes that you are still in the ./metadata/fdp-client/ folder):
+
+```
+docker run -v fdp-client-scss:/src/scss/custom/ --name helper busybox true
+docker cp .variables.scss helper:/src/scss/custom/_variables.scss
+docker rm helper
+
+docker run -v fdp-client-assets:/usr/share/nginx/html/ --name helper busybox true
+docker cp ./assets/ helper:/usr/share/nginx/html/
+docker cp ./favicon.ico helper:/usr/share/nginx/html/
+docker rm helper
+
+```   
+
+   - now go back to the cde-ready-to-go folder and bring the system back up.  Your FDP client will now be customized with your preferred icons and colors
