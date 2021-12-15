@@ -262,6 +262,7 @@ In this section we list other known `CDE in a box` solutions.
 MOLGENIS EDC provider also provides a complete set of `CDE in a box` with EDC system. To learn more about MOLGENIS implementation of the `CDE in a box` solution please visit this [link](https://github.com/fdlk/cde-in-box/tree/feat/molgenis)
 
 
+<a name="customizing"></a>
 # Customization of your installation
 
 ## Update username and password for the FDP
