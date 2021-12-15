@@ -278,7 +278,9 @@ docker run -v fdp-server:/fdp/ --name helper busybox true
 docker cp ./application.yml helper:/fdp/
 docker rm helper
 
-```   - now go back to the cde-ready-to-go folder and bring the system back up.  Your FDP is now protected with the new password.
+```   
+
+   - now go back to the cde-ready-to-go folder and bring the system back up.  Your FDP is now protected with the new password.
 
 ## Create a "safe" user for the CDE database
 
