@@ -1,7 +1,6 @@
-# temp-cde-in-a-box
-an alternative cde in a box installation process vs. Rajaram's.  Just testing for the moment
+# FAIR-in-a-box
 
-CDE in a box` is a collection of software applications which enables creation, storing and publishing of "Common Data Elements" according to the [CDE semantic model](https://github.com/ejp-rd-vp/CDE-semantic-model).
+FAIR in a box is an offshoot of the original [CDE-in-a-box](https://github.com/ejp-rd-vp/cde-in-box) created by [Rajaram Kaliyaperumal](https://github.com/rajaram5).  It differs primarily in the installation process (now fully automated) and adds the ability to do YARRRML-based transformations from CSV into RDF.
 
 ## CONTENTS
 
