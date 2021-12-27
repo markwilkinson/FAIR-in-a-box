@@ -1,19 +1,12 @@
-#require 'rdf/raptor'
+require 'rdf/raptor'
 require 'linkeddata'
 require 'sparql'
-require 'sinatra'
 require 'rest-client'
 require 'json'
 
-get '/update' do
-  headers = get_token
-  update_distribution_date(headers)
-  update_dataset_date_theme(headers)
-end
-
 def get_token
-  server = "http://#{ENV["DOMAIN"]}"
-  payload = '{ "email": "' + ENV["FDP_USERNAME"] + '", "password": "' + ENV["FDP_PASSWORD"] + '" }'
+  server = "http://fdp.duchennedatafoundation.org:8080"
+  payload = '{ "email": "info@fairdata.systems", "password": "!The1stDPPPass!!!" }'
   $stderr.puts "#{server}/tokens", payload, headers={content_type: 'application/json'}
   resp = RestClient.post("#{server}/tokens", payload, headers={content_type: 'application/json'})
      
@@ -26,19 +19,21 @@ end
 
 
 def update_distribution_date(headers)
-  dist_recordid = ENV["DIST_RECORDID"]
-  dist_recordURL = dist_recordid + "?format=ttl"
-  domain = ENV["DOMAIN"]
+  dist_recordid = "d959bbdd-7e20-453a-b8ad-0d1897bdb287"
+  dist_recordURL = dist_recordid + "?format=rdf"
+  domain = "fdp.duchennedatafoundation.org:8080"
   
   put_url = "http://#{domain}/distribution/#{dist_recordid}"
   get_url = "http://#{domain}/distribution/#{dist_recordURL}"
   
   distribution = RestClient.get(get_url)
-  io = StringIO.new(distribution.body)
-
-  reader = RDF::Reader.for(:turtle).new(io)
+  file="test"
+  File.open(file, "w") {|f| f.write(distribution.body)}
+  io = File.open(file)
+  reader = RDF::Reader.for(:rdfxml).new(io)
   queryable = RDF::Repository.new
   reader.each_statement {|s| queryable << s}
+  io.close
 
   time = Time.now.strftime('%Y-%m-%dT%H:%M:%S')
   
@@ -52,9 +47,9 @@ def update_distribution_date(headers)
   sse.execute(queryable)
 
   data = RDF::Writer.for(:turtle).dump(queryable)
-  
-  resp = RestClient.put(put_url, data, headers)
-  $stderr.puts resp
+  $stderr.puts data
+  #resp = RestClient.put(put_url, data, headers)
+  #$stderr.puts resp
   
 end
 
@@ -70,7 +65,6 @@ def update_dataset_date_theme(headers)
 
   dataset = RestClient.get(get_url)
   io = StringIO.new(dataset.body)
-
   reader = RDF::Reader.for(:turtle).new(io)
   queryable = RDF::Repository.new
   reader.each_statement {|s| queryable << s}
@@ -113,7 +107,7 @@ def update_dataset_date_theme(headers)
 end
 
 def get_types
-  data_sparql_endpoint = ENV["DATA_SPARQL_ENDPOINT"]
+  data_sparql_endpoint = $ENV["DATA_SPARQL_ENDPOINT"]
     
   
   sparql = SPARQL::Client.new(data_sparql_endpoint)
@@ -135,3 +129,11 @@ END
   return types
 
 end
+
+
+
+
+
+  headers = get_token
+  update_distribution_date(headers)
+  #update_dataset_date_theme(headers)
