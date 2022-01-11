@@ -66,29 +66,24 @@ docker cp ./fdp-client/assets/ helper:/usr/share/nginx/html/
 docker cp ./fdp-client/favicon.ico helper:/usr/share/nginx/html/
 docker rm helper
 
-#mkdir data
-#docker run -v mongo:/data/db --name helper busybox true
-
-#docker cp data helper:/data/db/
-#docker rm helper
-
-#docker run -v mongo-data:/data/db/ --name helper busybox true
-#docker cp data helper:/data/db
-#docker rm helper
+docker run -v mongo-data:/data/db --name helper busybox true
+docker cp ./mongo/data/* helper:/data/db/
+docker rm helper
 
 
-#docker run -v mongo-init:/docker-entrypoint-initdb.d/ --name helper busybox true
-#docker rm helper 
+docker run -v mongo-init:/docker-entrypoint-initdb.d/ --name helper busybox true
+docker cp ./mongo/init-mongo.js helper:/docker-entrypoint-initdb.d/init-mongo.js
+docker rm helper 
 
 
 echo ""
 echo ""
 docker-compose up -d
 sleep 20
-docker-compose down
-docker volume remove -f mongo-data
-docker volume create mongo-data
-docker-compose up -d
+#docker-compose down
+#docker volume remove -f mongo-data
+#docker volume create mongo-data
+#docker-compose up -d
 
 echo ""
 echo ""
