@@ -1,0 +1,53 @@
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix ldp: <http://www.w3.org/ns/ldp#> .
+
+<%{distribution}> a dcat:Resource,
+    dcat:Distribution;
+  <http://www.w3.org/2000/01/rdf-schema#label> "%{dist_title}";
+  dcterms:title "%{dist_title}";
+  <http://rdf.biosemantics.org/ontologies/fdp-o#metadataIssued> "%{dist_issued}"^^xsd:dateTime;
+  <http://rdf.biosemantics.org/ontologies/fdp-o#metadataModified> "%{dist_modified}"^^xsd:dateTime;
+  dcterms:license <%{dist_license}>;
+  dcterms:description "%{dist_description}";
+  dcterms:language <http://id.loc.gov/vocabulary/iso639-1/en>;
+  dcterms:identifier "%{distribution}";
+  <http://rdf.biosemantics.org/ontologies/fdp-o#metadataIdentifier> <%{distribution}#identifier>;
+  dcterms:accessRights <%{distribution}#accessRights>;
+  dcterms:publisher [ a foaf:Agent;
+      foaf:name "%{dist_publisher}"
+    ];
+  dcterms:isPartOf <%{dataset}>;
+  #
+  dcterms:issued "%{dist_issued}"^^xsd:dateTime;
+  dcterms:modified "%{dist_modified}"^^xsd:dateTime;
+  dcterms:hasVersion "%{dist_version}";
+  dcterms:rights <%{dist_rightsURI}>;
+  dcterms:accessRights <%{dist_accessRights}>;
+  dcat:accessService <%{distribution}#access>;
+  #
+  dcat:mediaType "%{dist_mediaType}" ;
+  dcat:contactPoint <%{distribution}#contact>;
+  dcterms:format "%{dist_mediaType}" .
+
+
+<%{distribution}#identifier>
+  a <http://purl.org/spar/datacite/Identifier>;
+  dcterms:identifier "%{distribution}" .
+
+<%{dist_rightsURI}>
+  a dcterms:RightsStatement;
+  dcterms:description "%{dist_rightsStatement}" .
+
+<%{distribution}#contact>
+  a <http://www.w3.org/2006/vcard/ns#Individual>;
+  <http://www.w3.org/2006/vcard/ns#fn> "%{dist_contact}"@en;
+  <http://www.w3.org/2006/vcard/ns#hasEmail> <%{dist_contact_email}> .
+
+<%{distribution}#access>
+  a dcat:DataService;
+  dcat:endpointDescription <%{dist_endpoint_description}>;
+  dcat:endpointURL <%{dist_endpoint}> .
+
