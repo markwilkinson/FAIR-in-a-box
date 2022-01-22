@@ -13,7 +13,7 @@ services:
       - graphdb_net
 
   fdp:
-    image: fairdata/fairdatapoint:1.12.1
+    image: fairdata/fairdatapoint:1.12.3
     volumes:
       - fdp-server:/fdp/
     restart: always
@@ -38,7 +38,7 @@ services:
     depends_on:
       - fdp
     ports:
-      - 8080:80
+      - 7070:80
     networks:
       - default
 

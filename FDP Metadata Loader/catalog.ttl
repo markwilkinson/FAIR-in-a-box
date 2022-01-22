@@ -1,0 +1,71 @@
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix ldp: <http://www.w3.org/ns/ldp#> .
+
+<%{catalog}> a dcat:Resource,
+    dcat:Catalog;
+  <http://www.w3.org/2000/01/rdf-schema#label> "%{cat_title}";
+  dcterms:title "%{cat_title}";
+  dcterms:hasVersion "0.0.1";
+  <http://rdf.biosemantics.org/ontologies/fdp-o#metadataIssued> "%{cat_issued}"^^xsd:dateTime;
+  <http://rdf.biosemantics.org/ontologies/fdp-o#metadataModified> "%{cat_modified}"^^xsd:dateTime;
+  dcterms:license <%{cat_license}>;
+  dcterms:description "%{cat_description}";
+  dcterms:language <http://id.loc.gov/vocabulary/iso639-1/en>;
+  <http://rdf.biosemantics.org/ontologies/fdp-o#metadataIdentifier> <%{catalog}#identifier>;
+  dcterms:identifier "%{catalog}";
+
+  dcterms:accessRights <%{catalog}#accessRights>;
+  dcterms:publisher [ a foaf:Agent;
+      foaf:name "%{cat_publisher}"
+    ];
+  dcterms:isPartOf <%{domain}>;
+  dcterms:issued "%{cat_issued}"^^xsd:dateTime;
+  dcterms:modified "%{cat_modified}"^^xsd:dateTime;
+  dcat:themeTaxonomy <http://purl.obolibrary.org/obo/HP_0000708>, <http://purl.obolibrary.org/obo/HP_0000750>,
+    <http://purl.obolibrary.org/obo/HP_0000819>, <http://purl.obolibrary.org/obo/HP_0001263>,
+    <http://purl.obolibrary.org/obo/HP_0001270>, <http://purl.obolibrary.org/obo/HP_0001639>,
+    <http://purl.obolibrary.org/obo/HP_0002014>, <http://purl.obolibrary.org/obo/HP_0002019>,
+    <http://purl.obolibrary.org/obo/HP_0002020>, <http://purl.obolibrary.org/obo/HP_0002194>,
+    <http://purl.obolibrary.org/obo/HP_0002650>, <http://purl.obolibrary.org/obo/HP_0002987>,
+    <http://purl.obolibrary.org/obo/HP_0003044>, <http://purl.obolibrary.org/obo/HP_0003270>,
+    <http://purl.obolibrary.org/obo/HP_0005997>, <http://purl.obolibrary.org/obo/HP_0006380>,
+    <http://purl.obolibrary.org/obo/HP_0006957>, <http://purl.obolibrary.org/obo/HP_0008366>,
+    <http://purl.obolibrary.org/obo/HP_0008981>, <http://purl.obolibrary.org/obo/HP_0009473>,
+    <http://purl.obolibrary.org/obo/HP_0011675>, <http://purl.obolibrary.org/obo/HP_0020110>,
+    <http://purl.obolibrary.org/obo/HP_0030193>, <http://purl.obolibrary.org/obo/HP_0032321>,
+    <http://purl.obolibrary.org/obo/HP_0033333>, <http://purl.obolibrary.org/obo/HP_0033454>,
+    <http://purl.obolibrary.org/obo/MP_0012106>, <http://purl.obolibrary.org/obo/NCIT_C101668>,
+    <http://purl.obolibrary.org/obo/NCIT_C102559>, <http://purl.obolibrary.org/obo/NCIT_C115789>,
+    <http://purl.obolibrary.org/obo/NCIT_C115805>, <http://purl.obolibrary.org/obo/NCIT_C121238>,
+    <http://purl.obolibrary.org/obo/NCIT_C122920>, <http://purl.obolibrary.org/obo/NCIT_C125410>,
+    <http://purl.obolibrary.org/obo/NCIT_C130965>, <http://purl.obolibrary.org/obo/NCIT_C131922>,
+    <http://purl.obolibrary.org/obo/NCIT_C132531>, <http://purl.obolibrary.org/obo/NCIT_C132555>,
+    <http://purl.obolibrary.org/obo/NCIT_C13306>, <http://purl.obolibrary.org/obo/NCIT_C13359>,
+    <http://purl.obolibrary.org/obo/NCIT_C136154>, <http://purl.obolibrary.org/obo/NCIT_C138901>,
+    <http://purl.obolibrary.org/obo/NCIT_C141687>, <http://purl.obolibrary.org/obo/NCIT_C141689>,
+    <http://purl.obolibrary.org/obo/NCIT_C141702>, <http://purl.obolibrary.org/obo/NCIT_C141706>,
+    <http://purl.obolibrary.org/obo/NCIT_C15220>, <http://purl.obolibrary.org/obo/NCIT_C15222>,
+    <http://purl.obolibrary.org/obo/NCIT_C15383>, <http://purl.obolibrary.org/obo/NCIT_C156186>,
+    <http://purl.obolibrary.org/obo/NCIT_C16457>, <http://purl.obolibrary.org/obo/NCIT_C164877>,
+    <http://purl.obolibrary.org/obo/NCIT_C171133>, <http://purl.obolibrary.org/obo/NCIT_C172685>,
+    <http://purl.obolibrary.org/obo/NCIT_C173346>, <http://purl.obolibrary.org/obo/NCIT_C176742>,
+    <http://purl.obolibrary.org/obo/NCIT_C20993>, <http://purl.obolibrary.org/obo/NCIT_C21072>,
+    <http://purl.obolibrary.org/obo/NCIT_C25271>, <http://purl.obolibrary.org/obo/NCIT_C25597>,
+    <http://purl.obolibrary.org/obo/NCIT_C25656>, <http://purl.obolibrary.org/obo/NCIT_C25711>,
+    <http://purl.obolibrary.org/obo/NCIT_C49887>, <http://purl.obolibrary.org/obo/NCIT_C50184>,
+    <http://purl.obolibrary.org/obo/NCIT_C50276>, <http://purl.obolibrary.org/obo/NCIT_C62103>,
+    <http://purl.obolibrary.org/obo/NCIT_C93300>, <http://purl.obolibrary.org/obo/NCIT_C94198>,
+    <http://purl.obolibrary.org/obo/NCIT_C94321>, <http://purl.obolibrary.org/obo/SYMP_0000401>,
+    <http://purl.obolibrary.org/obo/UBERON_0001434>, <http://www.orpha.net/ORDO/Orphanet_98895>,
+    <http://www.orpha.net/ORDO/Orphanet_98896> .
+
+<%{catalog}#identifier> a
+    <http://purl.org/spar/datacite/Identifier>;
+  dcterms:identifier "%{catalog}" .
+
+<%{catalog}#accessRights>
+  a dcterms:RightsStatement;
+  dcterms:description "%{cat_rights}" .
