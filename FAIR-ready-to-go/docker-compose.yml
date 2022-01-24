@@ -23,13 +23,13 @@ services:
       - mongo
       - graphdb
     networks:
-      - default
+      - fdp
       - graphdb_net    
         
   # FAIR Data Point client	
   fdp_client:
     image: fairdata/fairdatapoint-client:1.12.0
-    hostname: fdp_client
+    hostname: fdpclient
     restart: always
     environment:
       FDP_HOST: fdp
@@ -45,7 +45,7 @@ services:
     ports:
       - 7070:80
     networks:
-      - default
+      - fdp
 
 
   updater:
@@ -68,7 +68,7 @@ services:
       - mongo-data:/data/db
       - mongo-init:/docker-entrypoint-initdb.d/
     networks:
-      - default
+      - fdp
 
 
   cde-box-daemon: 
@@ -88,7 +88,7 @@ services:
         - ./data:/data
         - ./config:/config
     networks:
-      - default
+      - fdp
       - graphdb_net    
 
         
@@ -129,3 +129,6 @@ volumes:
 
 networks:
   graphdb_net:
+    external: false
+  fdp:
+    external: false

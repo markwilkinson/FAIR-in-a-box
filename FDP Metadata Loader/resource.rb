@@ -55,6 +55,7 @@ class DCATResource
         @parentURI = RDF::URI(parentURI)
         @types = types
 
+        abort "you must set baseURI and serverURL parameters" unless (self.baseURI and self.serverURL)
 
         set_headers()
     end
@@ -95,6 +96,7 @@ class DCATResource
             self.g << [self.identifier, pred, value]
         end
         %w[issued modified].each do |f|
+            $stderr.puts "doing issued modified #{f}"
             (pred, value) = get_pred_value(f, "DCT", "TIME")
             next unless pred and value
             self.g << [self.identifier, pred, value]
@@ -145,7 +147,9 @@ class DCATResource
 
         #dataService
         if self.is_a? DCATDataService
+            $stderr.puts "serializing data service #{self.endpointDescription} or #{self.endpointURL}"
             if self.endpointDescription or self.endpointURL 
+                $stderr.puts "serializing ENDPOINTS"
                 bnode = RDF::Node.new()
                 self.g << [self.identifier, DCAT.accessService, bnode]
                 self.g << [bnode, RDF.type, DCAT.dataService]
@@ -157,10 +161,13 @@ class DCATResource
         #mediaType or format  https://www.iana.org/assignments/media-types/application/3gppHalForms+json
         if self.is_a? DCATDistribution
             if self.mediaType 
-                type = "https://www.iana.org/assignments/media-types/" + self.mediaType
-                type = RDF::URI.new(type)
+                # CHANGE THIS BACK WHEN FDP SHACL validation is correct
+                # type = "https://www.iana.org/assignments/media-types/" + self.mediaType
+                # type = RDF::URI.new(type)
+                type = self.mediaType
                 self.g << [self.identifier, DCAT.mediaType, type]
-                self.g << [type, RDF.type, RDF::Vocab::DC.MediaType]
+                # CHANGE THIS BACK ALSO!
+                #self.g << [type, RDF.type, RDF::Vocab::DC.MediaType]
             end
             if self.format
                 type = RDF::URI.new(self.format)
@@ -189,7 +196,11 @@ class DCATResource
             themes = self.theme.split(",").filter_map{|url| url.strip if !url.strip.empty?}
             themes.each do |theme|
                 self.g << [self.identifier, DCAT.theme, RDF::URI.new(theme)]
+                self.g << [RDF::URI.new(theme), RDF.type, RDF::Vocab::SKOS.Concept]
+                self.g << [RDF::URI.new(theme), RDF::Vocab::SKOS.inScheme, RDF::URI.new(self.identifier.to_s + "#conceptscheme")]
             end
+            self.g << [ RDF::URI.new(self.identifier.to_s + "#conceptscheme"),  RDF.type, RDF::Vocab::SKOS.ConceptScheme]
+
         end
 
     end
@@ -199,14 +210,18 @@ class DCATResource
     end
 
     def publish
-        resp = RestClient.put("#{self.identifier.to_s}/meta/state", '{ "current": "PUBLISHED" }', headers={authorization: "Bearer #{$token}",  content_type: 'application/json'})        
+        location = self.identifier.to_s.gsub(self.baseURI, self.serverURL)
+
+        resp = RestClient.put("#{location}/meta/state", '{ "current": "PUBLISHED" }', headers={authorization: "Bearer #{$token}",  content_type: 'application/json'})        
+        $stderr.puts "piublish response message"
+        $stderr.puts resp.inspect
     end
 
     def get_pred_value(pred, vocab, datatype = nil)
-        $stderr.puts "getting #{pred}, #{vocab}"
+        #$stderr.puts "getting #{pred}, #{vocab}"
         urire = Regexp.new("((http|https)://)(www.)?[a-zA-Z0-9@:%._\\+~#?&//=]{2,256}\\.[a-z]{2,8}\\b([-a-zA-Z0-9@:%._\\+~#?&//=]*)")
         sym = '@'+pred
-        $stderr.puts "getting #{pred}, #{sym}..."
+        #$stderr.puts "getting #{pred}, #{sym}..."
         case vocab
         when "DCT"
             pred = RDF::Vocab::DC[pred]
@@ -215,25 +230,29 @@ class DCATResource
         when "FOAF"
             pred = FOAF[pred]
         end
-        $stderr.puts "got #{pred}, #{vocab}"
+        #$stderr.puts "got #{pred}, #{vocab}"
 
         value = self.instance_variable_get(sym).to_s
-        return [nil,nil] unless !value.empty?
         thisvalue = value # temp compy
-        $stderr.puts "got2 #{pred}, #{value}"
+        #$stderr.puts "got2 #{pred}, #{value}"
         
         if datatype == "TIME"
             now = Time.now.strftime('%Y-%m-%dT%H:%M:%S.%L')
             value = RDF::Literal.new(thisvalue, datatype: RDF::URI("http://www.w3.org/2001/XMLSchema#dateTime"))
+            $stderr.puts "time value1 #{value}"
             if !(value.valid?)
-                value = RDF::Literal.new(thisvalue, datatype: RDF::URI("http://www.w3.org/2001/XMLSchema#date"))
+                thisvalue = thisvalue + "T12:00+01:00"  # make a guess that they only provided the date
+                value = RDF::Literal.new(thisvalue, datatype: RDF::URI("http://www.w3.org/2001/XMLSchema#dateTime"))
+                $stderr.puts "time value2 #{value}"
                 if !(value.valid?)
-                    RDF::Literal.new(now, datatype: RDF::URI("http://www.w3.org/2001/XMLSchema#dateTime"))
+                    value = RDF::Literal.new(now, datatype: RDF::URI("http://www.w3.org/2001/XMLSchema#dateTime"))
+                    $stderr.puts "time value3 #{value}"
                 end
             end                
         elsif urire.match(thisvalue)
             value = RDF::URI.new(thisvalue)
         end
+        return [nil,nil] unless !value.to_s.empty?
         $stderr.puts "returning #{pred}, #{value}"
         return [pred, value]
     end

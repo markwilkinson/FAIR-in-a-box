@@ -41,9 +41,9 @@ END
         self.build
         location = self.identifier.to_s.gsub(self.baseURI, self.serverURL)
         $stderr.puts "rewriting dset to #{location}"
-        catalog = self.serialize
-        $stderr.puts catalog
-        resp = RestClient.put(location, catalog, $headers)
+        dataset = self.serialize
+        $stderr.puts dataset
+        resp = RestClient.put(location, dataset, $headers)
         $stderr.puts resp.headers.to_s
 
     end
