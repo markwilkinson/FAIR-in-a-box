@@ -14,8 +14,10 @@ services:
 
   fdp:
     image: fairdata/fairdatapoint:1.12.3
+#    volumes:
+#      - fdp-server:/fdp/
     volumes:
-      - fdp-server:/fdp/
+      - ./fdp/application.yml:/fdp/application.yml:ro
     restart: always
     depends_on:
       - mongo
@@ -31,10 +33,13 @@ services:
     restart: always
     environment:
       FDP_HOST: fdp
-#      FDP_HOST: fdp
+#    volumes:
+#      - fdp-client-scss:/src/scss/custom/
+#      - fdp-client-assets:/usr/share/nginx/html/
     volumes:
-      - fdp-client-scss:/src/scss/custom/
-      - fdp-client-assets:/usr/share/nginx/html/
+      - ./fdp/variables.scss:/src/scss/custom/_variables.scss:ro
+      - ./fdp/assets:/usr/share/nginx/html/assets:ro
+      - ./fdp/favicon.ico:/usr/share/nginx/html/favicon.ico:ro
     depends_on:
       - fdp
     ports:
@@ -59,8 +64,6 @@ services:
   mongo:
     image: mongo:4.2.3
     restart: always
-    ports:
-      - 27017:27017
     volumes:
       - mongo-data:/data/db
       - mongo-init:/docker-entrypoint-initdb.d/

@@ -18,7 +18,7 @@ cat_modified = Time.now.strftime('%Y-%m-%dT%H:%M:%S.%L')
 cat_publisher = "Stichting Parent Project Productions"
 cat_license = "https://raw.githubusercontent.com/creativecommons/cc.licenserdf/master/cc/licenserdf/licenses/creativecommons.org_publicdomain_zero_1.0_.rdf"
 #cat_themes = File.read("cat_themes.ttl")
-cat_rights = "This metadata file has no restrictions"
+cat_accessRights = "http://somerights.org"
 
 
 dset_title = "Duchenne Data Platform"
@@ -28,11 +28,11 @@ dset_modified = Time.now.strftime('%Y-%m-%dT%H:%M:%S.%L')
 dset_publisher = "Mark D Wilkinson"
 dset_license = "https://raw.githubusercontent.com/creativecommons/cc.licenserdf/master/cc/licenserdf/licenses/creativecommons.org_publicdomain_zero_1.0_.rdf"
 #dset_keywords =  "Becker Muscular Dystrophy"@en, "Clinical data"@en, "Duchenne Muscular Dystrophy"@en, "Genetic data"@en, "PROMs"@en, "PROs"@en
-dset_contact = "https://w3id.org/duchenne-fdp/dataset/d877ac76-87ba-461f-803b-3a8a90a2e965#contact";
+dset_contact = "Roos de Jonge"
 #dset_themes = File.read("dset_themes.ttl")
-dset_rights = "This metadata file has no restrictions"
+#dset_rights = "This metadata file has no restrictions"
 dset_landingPage = "https://duchenne.nl"
-dset_rightsURI = "https://en.wikipedia.org/wiki/All_rights_reserved"
+#dset_accessRights = "https://en.wikipedia.org/wiki/All_rights_reserved"
 dset_creator_orcid = "https://orcid.org/0000-0003-2160-9395"
 dset_contact_email = "mailto:info@duchenne.nl"
 
@@ -50,7 +50,6 @@ dist_endpoint_description = "https://some.location.that.explains/how.to.query/"
 dist_endpoint = "http://fdp.duchennedatafoundation.org:7200/sparql"
 dist_schema = "http://fairdata.systems:8890/DAV/home/LDP/duchenne/duchenne-shacl.ttl"
 dist_license = "http://rdflicense.appspot.com/rdflicense/cc-by-nc-nd3.0/rdf"
-dist_rightsURI = "https://en.wikipedia.org/wiki/All_rights_reserved"
 dist_rightsStatement = "All rights reserved"
 dist_mediaType = "application/sparql-results+json"
 
