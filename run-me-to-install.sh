@@ -67,7 +67,7 @@ docker cp ./fdp-client/favicon.ico helper:/usr/share/nginx/html/
 docker rm helper
 
 docker run -v mongo-data:/data/db --name helper busybox true
-docker cp ./mongo/data/* helper:/data/db/
+docker cp ./mongo/data helper:/data/db
 docker rm helper
 
 
@@ -80,22 +80,26 @@ echo ""
 echo ""
 docker-compose up -d
 sleep 20
-#docker-compose down
-#docker volume remove -f mongo-data
-#docker volume create mongo-data
-#docker-compose up -d
+docker-compose down
+docker volume remove -f mongo-data
+docker volume create mongo-data
+docker-compose up -d
+sleep 20
 
 echo ""
 echo ""
 echo -e "${GREEN}Installation Complete!"
 echo -e  "${GREEN}you now have 10 minutes to test things."  
 echo -e  "${GREEN}If GraphDB is working, you should be able to access it at: http://localhost:7200"
-echo -e  "${GREEN}If Your FAIR Data Point is working, you should be able to access it at: http://localhost:8080"
+echo -e  "${GREEN}If Your FAIR Data Point is working, you should be able to access it at: http://localhost:7070"
 echo ""
-echo -e  "${GREEN}For further instructions and tests, read the documentation on the cde-in-a-box GitHub page${NC}"
+echo -e  "${GREEN}For further instructions and tests, read the documentation on the FAIR-in-a-box GitHub page${NC}"
 echo ""
 echo -e  "${GREEN}You can stop this test phase at any time with CTRL-C, then wait for the docker images to shut down cleanly before continuing${NC}"
 sleep 600
-docker-compose down
-cd ..
+docker-compose -f $CWD/metadata/docker-compose.yml down
+docker-compose -f $CWD/bootstrap/docker-compose.yml down
+cd ../FAIR-ready-to-go
+echo ""
+echo -e  "${GREEN}Shutdown Complete.  You have been moved into the 'FAIR-ready-to-go' folder where the production version of the docker-compose file lives.  Just docker-compose up to get started!${NC}"
 
