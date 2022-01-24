@@ -8,6 +8,11 @@ The FDP Metadata Loader will consume a filled-out MS Excel template, and create 
 
 * In the template, the entries highlighted in BOLD are the required entries.  All other entries are allowed to be blank.
 
+* Once you have filled out the template and named it (whatever you call it needs to be entered into the `EXCEL` environment variable in the docker-compose file) you simply `docker-compose up` and wait until it is done.
+
+* THIS SOFTWARE ONLY SUPPORTS XLS, IT DOES NOT SUPPORT XLSX!!
+
+
 This is intended to be used with the docker-compose FAIR Data Point in "FAIR-ready-to-go".  If you use another docker-compose, you will need to adjust the network name in this docker-compose, along with the server URLs/ports in the Environment variables.  This is your problem :-)
 
 # Docker Compose explanation
