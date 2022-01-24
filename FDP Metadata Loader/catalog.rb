@@ -1,13 +1,15 @@
 class DCATCatalog < DCATResource
     attr_accessor :primaryTopic
-    attr_accessor :type
+    #attr_accessor :type
+    attr_accessor :themeTaxonomy
     attr_accessor :dataset
     
     # def initialize(primary_topic: nil, baseuri: "http://example.org", access_rights: nil, conforms_to: nil, contact_point: nil, resource_creator: nil, 
     #     title: nil, release_date: nil, modification_date: nil, publisher: nil, identifier: nil, license: nil  )
-    def initialize( **args)
+    def initialize( themeTaxonomy: nil, **args)
         super
         @dataset = nil
+        @themeTaxonomy = themeTaxonomy
         $stderr.puts self.inspect
         self.types = [DCAT.Catalog, DCAT.Resource]
         init_catalog()   # create record and get GUID
