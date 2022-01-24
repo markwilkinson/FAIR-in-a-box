@@ -34,11 +34,12 @@ networks:
 
 ```
 
-* EXCEL is the name of the excel file, relative to where you started the docker-compose up.
+* `EXCEL` is the name of the excel file, relative to where you started the docker-compose up.
 * If you need to find your fdp network name, do a `docker network ls` and figure it out
 * the `SERVER` environment variable is from the perspective of this docker image, and the hostname is the name of the network (in the other docker-compose) that the FAIR Data Point CLIENT is attached to, and the port is the INTERNAL port of that client (it will be 80 unless you have re-written the client software!)
-* BASE_URI is the persistentURL that you set in the  FAIR-in-a-box/metadata/fdp/application.yml file.
-* FDPUSER and FDPPASS are the admin username and password for the FDP Client (the ones provided are the defaults)
+* `BASE_URI` is the persistentURL that you set in the  FAIR-in-a-box/metadata/fdp/application.yml file.
+* `FDPUSER` and `FDPPASS` are the admin username and password for the FDP Client (the ones provided are the defaults)
+* `networks` points out to the external network created by the FAIR-ready-to-go docker-compose (`fairreadytogo_fdp` is the default, and will work out-of-the-box if you are using FAIR-ready-to-go)
 
 # CAVEAT EMPTOR
 
