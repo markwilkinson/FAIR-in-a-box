@@ -10,6 +10,7 @@ services:
     volumes:
       - fair-data-point:/opt/graphdb/home
     networks:
+      - default
       - graphdb_net
 
   fdp:
@@ -23,6 +24,7 @@ services:
       - mongo
       - graphdb
     networks:
+      - default
       - fdp
       - graphdb_net    
         
@@ -45,6 +47,7 @@ services:
     ports:
       - 7070:80
     networks:
+      - default
       - fdp
 
 
@@ -59,6 +62,8 @@ services:
       DOMAIN: ${DOMAIN}
       FDP_USERNAME: ${FDP_USERNAME}
       FDP_PASSWORD: ${FDP_PASSWORD}
+    networks:
+      - default
       
   # Mongo for FDP server    
   mongo:
@@ -69,6 +74,7 @@ services:
       - mongo-init:/docker-entrypoint-initdb.d/
     networks:
       - fdp
+      - default
 
 
   cde-box-daemon: 
@@ -90,6 +96,7 @@ services:
     networks:
       - fdp
       - graphdb_net    
+      - default
 
         
   yarrrml_transform: 
@@ -102,6 +109,12 @@ services:
       - ./data:/data
     environment:
       baseURI: ${baseURI}
+    networks:
+      - fdp
+      - graphdb_net    
+      - default
+
+
   
   rdfizer: 
     image: markw/sdmrdfizer_ejp:0.3.0
@@ -112,6 +125,12 @@ services:
     volumes:
       - ./data:/data
       - ./config:/config
+    networks:
+      - fdp
+      - graphdb_net    
+      - default
+
+
       
 volumes:
   fair-data-point:
