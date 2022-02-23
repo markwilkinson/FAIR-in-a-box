@@ -50,21 +50,6 @@ docker-compose up -d
 sleep 200
 docker-compose down
 
-docker run -v fdp-server:/fdp/ --name helper busybox true
-docker cp ./fdp/application.yml helper:/fdp/
-docker rm helper
-
-
-echo "fdp client css helper"
-docker run -v fdp-client-scss:/src/scss/custom/ --name helper busybox true
-docker cp ./fdp-client/variables.scss helper:/src/scss/custom/_variables.scss
-docker rm helper
-
-echo "fdp client nginx config helper"
-docker run -v fdp-client-assets:/usr/share/nginx/html/ --name helper busybox true
-docker cp ./fdp-client/assets/ helper:/usr/share/nginx/html/
-docker cp ./fdp-client/favicon.ico helper:/usr/share/nginx/html/
-docker rm helper
 
 docker run -v mongo-data:/data/db --name helper busybox true
 docker cp ./mongo/data helper:/data/db
