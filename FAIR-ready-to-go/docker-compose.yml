@@ -14,9 +14,7 @@ services:
       - graphdb_net
 
   fdp:
-    image: fairdata/fairdatapoint:1.12.3
-#    volumes:
-#      - fdp-server:/fdp/
+    image: fairdata/fairdatapoint:1.12.4
     volumes:
       - ./fdp/application.yml:/fdp/application.yml:ro
     restart: always
@@ -35,9 +33,6 @@ services:
     restart: always
     environment:
       FDP_HOST: fdp
-#    volumes:
-#      - fdp-client-scss:/src/scss/custom/
-#      - fdp-client-assets:/usr/share/nginx/html/
     volumes:
       - ./fdp/variables.scss:/src/scss/custom/_variables.scss:ro
       - ./fdp/assets:/usr/share/nginx/html/assets:ro
@@ -103,8 +98,8 @@ services:
     image: markw/yarrrml-parser-ejp:latest
     container_name: yarrrml_transform
     restart: always
-    ports:
-      - "3000:3000"
+    # ports:
+    #   - "3000:3000"
     volumes:
       - ./data:/data
     environment:
@@ -120,8 +115,8 @@ services:
     image: markw/sdmrdfizer_ejp:0.3.0
     container_name: rdfizer
     restart: always
-    ports:
-      - "4000:4000"
+    # ports:
+    #   - "4000:4000"
     volumes:
       - ./data:/data
       - ./config:/config
