@@ -87,7 +87,7 @@ ARG edition=free
 
 ## Installing
 
-*Initial Test  (default installation to localhost)*
+### Initial Test  (default installation to localhost)
 
 Once you have done above downloads and configurations you can run "run-me-to-install.sh" in the ./FAIR-in-a-box/ folder
 
@@ -99,7 +99,7 @@ After several minutes, the installer will send a message to the screen asking yo
 
 If installation is successful on localhost, then you should move on to a "production" installation.
 
-*Production Installation (using your domain or purl)*
+### Production Installation (using your domain or purl)
 
 You need to edit two files:
 
@@ -311,45 +311,25 @@ MOLGENIS EDC provider also provides a complete set of `CDE in a box` with EDC sy
    - at the terminal, shut down the system (docker-compose down)
    - go to the ./metadata/fdp folder and edit the file "application.yml"
    - in the repository settings, update the username and password to whatever you selected above
-   - now you need to copy the new settings into the FDP docker image.  To do so, issue the following commands (this assumes that you are still in the ./metadata/fdp folder):
+   - now you need to edit the configuration file in the FDP docker image.  To do this, shut-down your FAIR-ready-to-go (`docker-compose down`) then edit the `./metadata/fdp/application.yml` file to update the graphdb authentication username/password.
 
-```
-docker run -v fdp-server:/fdp/ --name helper busybox true
-docker cp ./application.yml helper:/fdp/
-docker rm helper
 
-```   
-
-   - now go back to the cde-ready-to-go folder and bring the system back up.  Your FDP is now protected with the new password.
+   - now go back to the FAIR-ready-to-go folder and bring the system back up.  Your FDP database is now protected with the new password.
 
 ## Create a "safe" user for the CDE database
 
    - Go to http://localhost:7200  and login with the current username and password
    - Enter the "settings" and "users".
    - Create a new user and password, giving them read/write permission ONLY on the CDE database, and read-only permission on the FDP database.
-   - in the cde-ready-to-go folder, update the `.env` file with this new limited-permissions user
+   - in the FAIR-ready-to-go folder, update the `.env` file with this new limited-permissions user
    - docker-compose down and up to restart the server
 
 
 ##  Update the colors and logo
 
-   - go to the ./metadata/fdp-client/ folder
+   - go to the `FAIR-ready-to-go/fdp` folder
    - add your preferred logo file into the ./assets subfolder
    - edit the ./variables.scss to point to that new logo file, and select its display size (or keep the default)
-   - to change the default colors, edit the first two lines to select the primary and secondary colors (the horizontal bar on the http://localhost:8080 homepage shows the primary color on the left and the secondary color on the right)
+   - to change the default colors, edit the first two lines to select the primary and secondary colors (the horizontal bar on the default http://localhost:7070 homepage shows the primary color on the left and the secondary color on the right)
    - if you have a preferred favicon, replace the one in that folder with your preferred one.
-   - now you need to copy the new settings into the FDP Client docker image.  To do so, issue the following commands (this assumes that you are still in the ./metadata/fdp-client/ folder):
-
-```
-docker run -v fdp-client-scss:/src/scss/custom/ --name helper busybox true
-docker cp .variables.scss helper:/src/scss/custom/_variables.scss
-docker rm helper
-
-docker run -v fdp-client-assets:/usr/share/nginx/html/ --name helper busybox true
-docker cp ./assets/ helper:/usr/share/nginx/html/
-docker cp ./favicon.ico helper:/usr/share/nginx/html/
-docker rm helper
-
-```   
-
-   - now go back to the FAIR-ready-to-go folder and bring the system back up.  Your FDP client will now be customized with your preferred icons and colors
+   - now go back to the FAIR-ready-to-go folder and bring the docker-compose back up.  Your FDP client will now be customized with your preferred icons and colors
