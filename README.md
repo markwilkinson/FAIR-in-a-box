@@ -166,7 +166,7 @@ By default GraphDB service is secured so you need credentials to login to the gr
 
 | Service name | Local deployment | Production deployment |
 | --- | --- | --- |
-| FAIR Data Point | [http://localhost:8080](http://localhost:8080) | http://SERVER-IP:8080 |
+| FAIR Data Point | [http://localhost:7070](http://localhost:7070) | http://SERVER-IP:7070 |
 
 **Note:** If you deploy the `FAIR in a box` solution in your laptop then check only for **local deployment** url.
 
