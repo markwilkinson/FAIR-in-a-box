@@ -11,20 +11,17 @@ services:
       - fair-data-point:/opt/graphdb/home
     networks:
       - default
-      - graphdb_net
 
   fdp:
     image: fairdata/fairdatapoint:1.12.4
+    restart: always
     volumes:
       - ./fdp/application.yml:/fdp/application.yml:ro
-    restart: always
     depends_on:
       - mongo
       - graphdb
     networks:
       - default
-      - fdp
-      - graphdb_net    
         
   # FAIR Data Point client	
   fdp_client:
@@ -43,7 +40,6 @@ services:
       - 7070:80
     networks:
       - default
-      - fdp
 
 
   updater:
@@ -57,8 +53,6 @@ services:
       DOMAIN: ${DOMAIN}
       FDP_USERNAME: ${FDP_USERNAME}
       FDP_PASSWORD: ${FDP_PASSWORD}
-    networks:
-      - default
       
   # Mongo for FDP server    
   mongo:
@@ -68,7 +62,6 @@ services:
       - mongo-data:/data/db
       - mongo-init:/docker-entrypoint-initdb.d/
     networks:
-      - fdp
       - default
 
 
@@ -89,8 +82,6 @@ services:
         - ./data:/data
         - ./config:/config
     networks:
-      - fdp
-      - graphdb_net    
       - default
 
         
@@ -98,34 +89,18 @@ services:
     image: markw/yarrrml-parser-ejp:latest
     container_name: yarrrml_transform
     restart: always
-    # ports:
-    #   - "3000:3000"
     volumes:
       - ./data:/data
     environment:
       baseURI: ${baseURI}
-    networks:
-      - fdp
-      - graphdb_net    
-      - default
-
-
   
   rdfizer: 
     image: markw/sdmrdfizer_ejp:0.3.0
     container_name: rdfizer
     restart: always
-    # ports:
-    #   - "4000:4000"
     volumes:
       - ./data:/data
       - ./config:/config
-    networks:
-      - fdp
-      - graphdb_net    
-      - default
-
-
       
 volumes:
   fair-data-point:
@@ -134,15 +109,5 @@ volumes:
     external: true
   mongo-init:
     external: true
-  fdp-client-assets:
-    external: true
-  fdp-client-scss:
-    external: true
   fdp-server:
     external: true
-
-networks:
-  graphdb_net:
-    external: false
-  fdp:
-    external: false
