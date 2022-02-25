@@ -20,7 +20,7 @@ In order to use the FAIR-in-a-box solution you `have to` meet following requirem
 
 * Basic knowledge about Docker​
 * Basic GitHub knowledge​
-* Awareness of the EJP RD's CDE semantic model
+* (optional) Awareness of the EJP RD's CDE semantic model if you plan to create FAIR data
 
 **System requirements​ (Machine where this solution is being deployed)**
 
@@ -67,7 +67,7 @@ graph_db:
       context: ./graph-db
       dockerfile: Dockerfile        
       args:
-        version: 9.7.0
+        version: 9.9.1    <-----------
 ```
 
 **Step 5:** If your `graphdb version` is different from `9.9.1` then change the version number of graph DB in the ./FAIR-in-a-box/bootstrap/graph-db/Docker file
@@ -76,7 +76,7 @@ graph_db:
 FROM adoptopenjdk/openjdk11:alpine
 
 # Build time arguments
-ARG version=9.9.1
+ARG version=9.9.1   <-----------
 ARG edition=free
 
 ```
@@ -87,13 +87,58 @@ ARG edition=free
 
 ## Installing
 
+*Initial Test  (default installation to localhost)*
+
 Once you have done above downloads and configurations you can run "run-me-to-install.sh" in the ./FAIR-in-a-box/ folder
 
 ```sh
 ./run-me-to-install.sh
 ```
 
-after several mimnutes, the installer will send a message to the screen asking you to check that the installation was successful.  This message will last for 10 minutes, giving you enough time to explore the links below.  After 10 minutes, the services will all automatically shut down.  You can stop the installer by CTRL-C anytime.
+After several minutes, the installer will send a message to the screen asking you to check that the installation was successful.  This message will last for 10 minutes, giving you enough time to explore the links below.  After 10 minutes, the services will all automatically shut down.  You can stop the installer by CTRL-C anytime.
+
+If installation is successful on localhost, then you should move on to a "production" installation.
+
+*Production Installation (using your domain or purl)*
+
+You need to edit two files:
+
+```
+./metadata/fdp/application.yml
+./FAIR-ready-to-go/fdp/application.yml
+
+```
+
+The lines you need to edit in both files are:
+
+```
+    clientUrl: http://localhost:7070
+    persistentUrl: http://localhost:7070
+
+```
+Replace the localhost URL with your own URL  (note that you should NOT include a trailing slash!).  These will form the base of all auto-generated URLs from the FAIR Data Point.
+
+Once you have done the edits re-run "run-me-to-install.sh" in the ./FAIR-in-a-box/ folder
+
+```sh
+./run-me-to-install.sh
+```
+
+This will now set-up your FAIR Data Point with production URLs.
+
+Once that installation is complete.  CTRL-C to shut it down.
+
+The folder `FAIR-ready-to-go` contains your production FAIR Data Point. To run it:
+
+```
+cd FAIR-ready-to-go
+./cleanup.sh
+docker-compose up -d
+```
+
+Give it a few minutes to startup, then browse to your root URL (the one you set as persistentUrl in the application.yml file).  Voila!
+
+Additional customization options are described below.
 
 --------------------------------------------------
 
