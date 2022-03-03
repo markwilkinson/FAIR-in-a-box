@@ -1,7 +1,0 @@
-docker run --rm --name temp -v fdp-client-assets:/usr/share/nginx/html/ busybox ls -l /usr/share/nginx/html/assets
-
-docker container create --name temp -v fdp-client-assets:/usr/share/nginx/html/ busybox
-
-docker cp logo.png temp:/usr/share/nginx/html/assets/
-
-docker rm temp
