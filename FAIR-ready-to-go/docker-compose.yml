@@ -1,6 +1,55 @@
 version: "3"
 services:
 
+  # hitch:
+  #   image: markw/hitch-f-i-a-b:0.0.1
+  #   hostname: "hitch"
+  #   container_name: "hitch"
+  #   restart: always
+  #   volumes:
+  #   - $PWD:/var/lib/hitch/
+  #   - ./proxy.conf:/etc/hitch/hitch.conf
+  #   - ./combined.pem:/etc/hitch/cert.pem  # this is YOUR cert + key pem file
+  #   ports:
+  #    - "8443:8443" # the left is what is exposed to the web.  The right must match the "frontend" port in proxy.comf
+  #   depends_on:
+  #     - "varnish"
+  #   networks:
+  #     - default
+
+  # varnish:
+  #   image: markw/varnish-f-i-a-b:0.0.1
+  #   container_name: varnish
+  #   restart: always
+  #   tmpfs:
+  #     - /var/lib/varnish:exec
+  #   environment:
+  #     - VARNISH_SIZE=2G  
+  #   depends_on:
+  #     - "fdp_client" 
+  #   networks:
+  #     - default
+
+
+  # FAIR Data Point client	
+  fdp_client:
+    image: fairdata/fairdatapoint-client:1.12.0
+    hostname: fdpclient
+    restart: always
+    environment:
+      FDP_HOST: fdp
+    volumes:
+      - ./fdp/variables.scss:/src/scss/custom/_variables.scss:ro
+      - ./fdp/assets:/usr/share/nginx/html/assets:ro
+      - ./fdp/favicon.ico:/usr/share/nginx/html/favicon.ico:ro
+    depends_on:
+      - fdp
+    ports:
+      - 7070:80  # You can close this port, if you are using hitch+varnish
+    networks:
+      - default
+
+
   graphdb:
     image: graphdb:local
     restart: always
@@ -23,23 +72,6 @@ services:
     networks:
       - default
         
-  # FAIR Data Point client	
-  fdp_client:
-    image: fairdata/fairdatapoint-client:1.12.0
-    hostname: fdpclient
-    restart: always
-    environment:
-      FDP_HOST: fdp
-    volumes:
-      - ./fdp/variables.scss:/src/scss/custom/_variables.scss:ro
-      - ./fdp/assets:/usr/share/nginx/html/assets:ro
-      - ./fdp/favicon.ico:/usr/share/nginx/html/favicon.ico:ro
-    depends_on:
-      - fdp
-    ports:
-      - 7070:80
-    networks:
-      - default
 
 
   updater:
