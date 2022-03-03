@@ -7,9 +7,8 @@ services:
   #   container_name: "hitch"
   #   restart: always
   #   volumes:
-  #   - $PWD:/var/lib/hitch/
-  #   - ./proxy.conf:/etc/hitch/hitch.conf
-  #   - ./combined.pem:/etc/hitch/cert.pem  # this is YOUR cert + key pem file
+  #   - $PWD/proxy.conf:/etc/hitch/hitch.conf
+  #   - $PWD/combined.pem:/etc/hitch/cert.pem  # this is YOUR cert + key pem file
   #   ports:
   #    - "8443:8443" # the left is what is exposed to the web.  The right must match the "frontend" port in proxy.comf
   #   depends_on:
