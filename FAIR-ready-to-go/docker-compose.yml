@@ -32,7 +32,7 @@ services:
 
   # FAIR Data Point client	
   fdp_client:
-    image: fairdata/fairdatapoint-client:1.13.1
+    image: fairdata/fairdatapoint-client:1.13.0
     hostname: fdpclient
     restart: always
     environment:
@@ -61,7 +61,7 @@ services:
       - default
 
   fdp:
-    image: fairdata/fairdatapoint:1.12.4
+    image: fairdata/fairdatapoint:1.13.1
     restart: always
     volumes:
       - ./fdp/application.yml:/fdp/application.yml:ro
