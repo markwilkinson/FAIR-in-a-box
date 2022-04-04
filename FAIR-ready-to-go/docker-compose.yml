@@ -32,7 +32,7 @@ services:
 
   # FAIR Data Point client	
   fdp_client:
-    image: fairdata/fairdatapoint-client:1.12.0
+    image: fairdata/fairdatapoint-client:1.13.1
     hostname: fdpclient
     restart: always
     environment:
