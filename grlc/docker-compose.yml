@@ -1,0 +1,26 @@
+version: "3"
+services:
+
+  grlc:
+    image: clariah/grlc
+    hostname: "grlc"
+    container_name: "grlc"
+    restart: always
+    volumes:
+    - ./queries/:/home/grlc/queries/
+    - ./config.ini:/home/grlc/grlc/config.default.ini
+    ports:
+     - "8088:80" 
+    networks:
+      - default
+    environment:
+      - DEBUG=true
+      - GRLC_SPARQL_ENDPOINT=http://graphdb:7200/repositories/cde
+      - GRLC_SERVER_NAME=localhost:8088
+      - GRLC_GITHUB_ACCESS_TOKEN=abcdefg
+
+
+networks:
+  default:
+    name: dpp_graphdb
+    external: true
