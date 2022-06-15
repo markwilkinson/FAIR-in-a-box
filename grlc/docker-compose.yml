@@ -7,7 +7,7 @@ services:
     container_name: "grlc"
     restart: always
     volumes:
-    - ./queries/:/home/grlc/queries/
+    - ./grlc-queries/:/home/grlc/queries/
     - ./config.ini:/home/grlc/grlc/config.default.ini
     ports:
      - "8088:80" 
