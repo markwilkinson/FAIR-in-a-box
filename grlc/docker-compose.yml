@@ -17,8 +17,7 @@ services:
       - DEBUG=true
       - GRLC_SPARQL_ENDPOINT=http://graphdb:7200/repositories/cde
       - GRLC_SERVER_NAME=localhost:8088
-      - GRLC_GITHUB_ACCESS_TOKEN=abcdefg
-
+# this will be your server URL, if you want to serve from the outside.
 
 networks:
   default:
