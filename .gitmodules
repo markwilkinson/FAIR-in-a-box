@@ -1,3 +1,6 @@
 [submodule "grlc/grlc/grlc-queries"]
 	path = grlc/grlc/grlc-queries
 	url = https://github.com/World-Duchenne-Organization/grlc-queries.git
+[submodule "grlc/grlc-queries"]
+	path = grlc/grlc-queries
+	url = https://github.com/World-Duchenne-Organization/grlc-queries.git
