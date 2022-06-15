@@ -70,5 +70,5 @@ Now you're ready to go!
    $ docker-compose up -d
 ```
 
-If you now surf to http://localhost:8088/api-local/ you will see your grlc server (you can also go to http://yourservername.org/8088/api-local/)
+If you now surf to http://localhost:8088/api-local/ you will see your grlc server (you can also go to http://yourservername.org:8088/api-local/)
 
