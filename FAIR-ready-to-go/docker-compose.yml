@@ -114,6 +114,7 @@ services:
         - ./config:/config
     networks:
       - default
+      - graphdb
 
         
   yarrrml_transform: 
@@ -142,3 +143,6 @@ volumes:
     external: true
   fdp-server:
     external: true
+
+networks:
+  graphdb:
