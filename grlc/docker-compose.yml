@@ -2,7 +2,7 @@ version: "3"
 services:
 
   grlc:
-    image: markw/grlc_3.9.13:0.0.4
+    image: markw/grlc_3.9.13:0.0.5
     hostname: "grlc"
     container_name: "grlc"
     restart: always
