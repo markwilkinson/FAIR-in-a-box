@@ -1,7 +1,0 @@
-[submodule "grlc/grlc/grlc-queries"]
-	path = grlc/grlc/grlc-queries
-	url = https://github.com/World-Duchenne-Organization/grlc-queries.git
-[submodule "grlc-queries"]
-	path = grlc-queries
-	url = git@github.com:World-Duchenne-Organization/grlc-queries.git
-	branch = main
