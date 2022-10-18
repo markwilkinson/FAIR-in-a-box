@@ -1,0 +1,4 @@
+[submodule "grlc/grlc-queries"]
+	path = grlc/grlc-queries
+	url = git@github.com:World-Duchenne-Organization/grlc-queries.git
+	branch = main
