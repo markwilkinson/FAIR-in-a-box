@@ -17,7 +17,7 @@ You must also **_NEVER PROVIDE A VALID GITHUB TOKEN_** in the configuration file
 
 # Configuration
 
-It is **strongly recommended** that you login to GraphDB and create a readonly user for the `cde` database.
+It is **strongly recommended** that you login to GraphDB and create a readonly user for the `cde` database with a strong password.
 
 Edit the `config.ini` file in this folder with the username and password for that readonly user.
 
@@ -37,7 +37,8 @@ To initialize it and fill it with the queries, you need to
 Subsequently, you can update the queries at any time using 
 
 ```
-      $ git submodule update
+      $ cd grlc-queries
+      $ git pull origin main
 ```
 
 ## Customizing the grlc server
