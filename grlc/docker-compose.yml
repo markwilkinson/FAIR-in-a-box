@@ -2,12 +2,12 @@ version: "3"
 services:
 
   grlc:
-    image: clariah/grlc
+    image: markw/grlc_3.9.13:0.0.5
     hostname: "grlc"
     container_name: "grlc"
     restart: always
     volumes:
-    - ./queries/:/home/grlc/queries/
+    - ./grlc-queries/:/home/grlc/queries/
     - ./config.ini:/home/grlc/grlc/config.default.ini
     ports:
      - "8088:80" 
@@ -17,8 +17,7 @@ services:
       - DEBUG=true
       - GRLC_SPARQL_ENDPOINT=http://graphdb:7200/repositories/cde
       - GRLC_SERVER_NAME=localhost:8088
-      - GRLC_GITHUB_ACCESS_TOKEN=abcdefg
-
+# this will be your server URL, if you want to serve from the outside.
 
 networks:
   default:
