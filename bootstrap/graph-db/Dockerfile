@@ -1,7 +1,7 @@
 FROM adoptopenjdk/openjdk11:alpine
 
 # Build time arguments
-ARG version=9.9.1
+ARG version=10.1.0
 
 ENV GRAPHDB_PARENT_DIR=/opt/graphdb
 ENV GRAPHDB_HOME=${GRAPHDB_PARENT_DIR}/home
