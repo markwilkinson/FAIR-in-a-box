@@ -32,7 +32,7 @@ services:
 
   # FAIR Data Point client	
   fdp_client:
-    image: fairdata/fairdatapoint-client:1.13.0
+    image: fairdata/fairdatapoint-client:1.15.0
     hostname: fdpclient
     restart: always
     environment:
@@ -61,7 +61,7 @@ services:
       - default
 
   fdp:
-    image: fairdata/fairdatapoint:1.13.1
+    image: fairdata/fairdatapoint:1.15.0
     restart: always
     volumes:
       - ./fdp/application.yml:/fdp/application.yml:ro
@@ -127,7 +127,7 @@ services:
       baseURI: ${baseURI}
   
   rdfizer: 
-    image: markw/sdmrdfizer_ejp:0.3.0
+    image: markw/sdmrdfizer_ejp:0.5.0
     container_name: rdfizer
     restart: always
     volumes:
