@@ -132,7 +132,7 @@ The folder `FAIR-ready-to-go` contains your production FAIR Data Point. To run i
 
 ```
 cd FAIR-ready-to-go
-./cleanup.sh
+
 docker-compose up -d
 ```
 
