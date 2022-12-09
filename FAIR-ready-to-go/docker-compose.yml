@@ -106,7 +106,8 @@ services:
         
   yarrrml_transform: 
     image: markw/yarrrml-parser-ejp:latest
-    container_name: yarrrml_transform
+    container_name: yarrrml_transform_FiaB
+    hostname: yarrrml_transform
     restart: always
     volumes:
       - ./data:/data
@@ -115,7 +116,12 @@ services:
   
   rdfizer: 
     image: markw/sdmrdfizer_ejp:0.5.0
+<<<<<<< HEAD
     container_name: rdfizer
+=======
+    container_name: rdfizer_FiaB
+    hostname: rdfizer
+>>>>>>> f6975f81386c344c7793033ba100bc3fbb47eba7
     restart: always
     volumes:
       - ./data:/data

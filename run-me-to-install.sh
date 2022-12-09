@@ -38,7 +38,7 @@ echo -e "Go make a nice cup of tea and then come back to check on progress"
 echo -e "${NC}"
 echo ""
 
-docker-compose up -d
+docker-compose up --build -d
 sleep 200
 
 echo ""
@@ -46,7 +46,7 @@ echo -e "${GREEN}Setting up FAIR Data Point client and server${NC}"
 echo ""
 cd ../metadata
 
-docker-compose up -d
+docker-compose up --build -d
 sleep 200
 docker-compose down
 
