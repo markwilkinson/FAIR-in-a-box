@@ -56,7 +56,7 @@ To use FAIR-in-a-box you also need to download the _standalone_ graphDB triple s
 mv graphdb-{version}-dist.zip FAIR-in-a-box/bootstrap/graph-db
 ```
 
-**Step 4:** If your `graphdb version` is different from `9.9.1` then change the version number of graph DB in the ./FAIR-in-a-box/bootstrap/docker-compose file.
+**Step 4:** If your `graphdb version` is different from `10.1.0` then change the version number of graph DB in the ./FAIR-in-a-box/bootstrap/docker-compose file.
 
 ```sh
 graph_db:
@@ -64,16 +64,16 @@ graph_db:
       context: ./graph-db
       dockerfile: Dockerfile
       args:
-        version: 9.9.1    <-----------
+        version: 10.1.0    <-----------
 ```
 
-**Step 5:** If your `graphdb version` is different from `9.9.1` then change the version number of graph DB in the ./FAIR-in-a-box/bootstrap/graph-db/Docker file
+**Step 5:** If your `graphdb version` is different from `10.1.0` then change the version number of graph DB in the ./FAIR-in-a-box/bootstrap/graph-db/Docker file
 
 ```sh
 FROM adoptopenjdk/openjdk11:alpine
 
 # Build time arguments
-ARG version=9.9.1   <-----------
+ARG version=10.1.0   <-----------
 
 ```
 
@@ -131,7 +131,6 @@ The folder `FAIR-ready-to-go` contains your production FAIR Data Point. To run i
 
 ```
 cd FAIR-ready-to-go
-./cleanup.sh
 docker-compose up -d
 ```
 

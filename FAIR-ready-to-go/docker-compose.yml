@@ -16,23 +16,9 @@ services:
   #   networks:
   #     - default
 
-  # varnish:
-  #   image: markw/varnish-f-i-a-b:0.0.1
-  #   container_name: varnish
-  #   restart: always
-  #   tmpfs:
-  #     - /var/lib/varnish:exec
-  #   environment:
-  #     - VARNISH_SIZE=2G  
-  #   depends_on:
-  #     - "fdp_client" 
-  #   networks:
-  #     - default
-
-
   # FAIR Data Point client	
   fdp_client:
-    image: fairdata/fairdatapoint-client:1.13.0
+    image: fairdata/fairdatapoint-client:1.15.0
     hostname: fdpclient
     restart: always
     environment:
@@ -61,7 +47,7 @@ services:
       - default
 
   fdp:
-    image: fairdata/fairdatapoint:1.13.1
+    image: fairdata/fairdatapoint:1.15.0
     restart: always
     volumes:
       - ./fdp/application.yml:/fdp/application.yml:ro
@@ -97,7 +83,8 @@ services:
 
 
   cde-box-daemon: 
-    image: markw/cde-box-daemon:latest
+#    image: markw/cde-box-daemon:0.3.0  # for the Version 1 CDE models
+    image: markw/cde-box-daemon:0.4.0   # for the Version 2 CDE models
     container_name: cde-box-daemon
     restart: always
     depends_on:
@@ -127,7 +114,7 @@ services:
       baseURI: ${baseURI}
   
   rdfizer: 
-    image: markw/sdmrdfizer_ejp:0.3.0
+    image: markw/sdmrdfizer_ejp:0.5.0
     container_name: rdfizer
     restart: always
     volumes:

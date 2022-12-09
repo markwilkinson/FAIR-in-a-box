@@ -76,10 +76,9 @@ def update_dataset_date_theme(headers)
   reader.each_statement {|s| queryable << s}
   
   time = Time.now.strftime('%Y-%m-%dT%H:%M:%S')
-  puts time
+  #warn  time
   
   sse = SPARQL.parse(%(
-    PREFIX doap: <http://usefulinc.com/ns/doap#>
     PREFIX dcterms: <http://purl.org/dc/terms/>
     PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
     DELETE { ?res dcterms:modified ?date}
@@ -90,9 +89,6 @@ def update_dataset_date_theme(headers)
 
   types = get_types()
   newquery = %(
-    PREFIX doap: <http://usefulinc.com/ns/doap#>
-    PREFIX dcterms: <http://purl.org/dc/terms/>
-    PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
     PREFIX dcat: <http://www.w3.org/ns/dcat#>
     
     DELETE { ?res dcat:theme ?term}
@@ -108,7 +104,7 @@ def update_dataset_date_theme(headers)
   data = RDF::Writer.for(:turtle).dump(queryable)
   
   resp = RestClient.put(put_url, data, headers)
-  $stderr.puts resp
+  warn resp
 
 end
 
@@ -129,7 +125,7 @@ END
   
   result = sparql.query(query)
   types = result.map{|r| "<#{r[:type]}>"}
-  puts types
+  warn types
   
   types = types.join(" ")
   return types
