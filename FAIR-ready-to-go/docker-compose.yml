@@ -10,7 +10,7 @@ services:
   #   - $PWD/proxy.conf:/etc/hitch/hitch.conf
   #   - $PWD/combined.pem:/etc/hitch/cert.pem  # this is YOUR cert + key pem file
   #   ports:
-  #    - "8443:8443" # the left is what is exposed to the web.  The right must match the "frontend" port in proxy.comf
+  #    - "7070:8443" # the left is what is exposed to the web.  The right must match the "frontend" port in proxy.comf
   #   depends_on:
   #     - "varnish"
   #   networks:
@@ -30,7 +30,7 @@ services:
     depends_on:
       - fdp
     ports:
-      - 7070:80  # You can close this port, if you are using hitch+varnish
+      - 7070:80  # You should/must close this port, if you are using hitch
     networks:
       - default
 
@@ -57,8 +57,6 @@ services:
     networks:
       - default
         
-
-
   updater:
     image: markw/fdp-metadata-updater:0.0.1
     restart: always
@@ -122,7 +120,20 @@ services:
     volumes:
       - ./data:/data
       - ./config:/config
-      
+
+  beacon_count:
+    image: pabloalarconm/ejprd-counting-api:0.0.2
+    container_name: beacon_count_FiaB
+    hostname: beacon_count
+    restart: always
+    ports:
+      - "7071:8000"
+    environment:
+      - TRIPLESTORE_URL=${DATA_SPARQL_ENDPOINT}
+      - TRIPLESTORE_USERNAME=${GraphDB_User}
+      - TRIPLESTORE_PASSWORD=${GraphDB_Pass}
+
+
 volumes:
   fair-data-point:
     external: true
