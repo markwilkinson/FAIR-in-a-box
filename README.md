@@ -74,11 +74,7 @@ graph_db:
 FROM adoptopenjdk/openjdk11:alpine
 
 # Build time arguments
-<<<<<<< HEAD
 ARG version=10.1.0   <-----------
-=======
-ARG version=9.9.1   <-----------
->>>>>>> f6975f81386c344c7793033ba100bc3fbb47eba7
 
 ```
 
