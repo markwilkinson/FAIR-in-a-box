@@ -8,10 +8,7 @@ FAIR in a box is an offshoot of the original [CDE-in-a-box](https://github.com/e
 - [Downloading](#downloading)
 - [Installing](#installing)
 - [Testing your installation](#testing)
-<<<<<<< HEAD
-=======
 - [Fixing the "can't edit via the web page" problem](#repair_installation)
->>>>>>> f6975f81386c344c7793033ba100bc3fbb47eba7
 - [Using your FAIR-in-a-Box](#using)
 - [Customizing your FAIR-in-a-Box](#customizing)
 
