@@ -1,3 +1,23 @@
+# DO NOT USE!   DEPRECATED!!!
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # FAIR-in-a-box
 
 FAIR in a box is an offshoot of the original [CDE-in-a-box](https://github.com/ejp-rd-vp/cde-in-box) created by [Rajaram Kaliyaperumal](https://github.com/rajaram5). It differs primarily in the installation process (now fully automated) and adds a variety of tools and configurations to create production-ready servers (e.g. docker-volumes for data storage, and a pre-configured HTTPS proxy).
